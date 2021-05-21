@@ -1,15 +1,4 @@
-FROM python:3.8-slim-buster as builder
-
-## install dependencies
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y \
-        netcat-openbsd \
-        gcc \
-        libpq-dev \
-    && apt-get clean
-
-FROM builder
+FROM python:3.8-slim-buster
 
 SHELL ["/bin/bash", "-c"]
 
