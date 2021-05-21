@@ -26,28 +26,20 @@ def mk_error_response(msg, status_code):
     return response
 
 
-def mk_success_response(body, msg):
-    message = {
-        "status": 200,
-        "body": body,
-        "message": msg,
-    }
-    response = flask.jsonify(message)
-    response.status_code = 200
+def mk_response(body, status_code):
+    response = flask.jsonify(body)
+    response.status_code = status_code
     response.headers.add("Access-Control-Allow-Origin", "*")
 
-    logger.info(f"Serving success response: {response}")
+    logger.info(f"Serving response: {response}")
 
     return response
 
 
-@bp.route("/extract", methods=["GET"])
+@bp.route("/", methods=["GET"])
 def index():
     log_request_start(flask.request)
 
     response_body = {"index": "hello"}
 
-    response = flask.jsonify(response_body)
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    logger.info(f"Serving response: {response}")
-    return response
+    return mk_response(response_body, 200)
